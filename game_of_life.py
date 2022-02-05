@@ -27,7 +27,6 @@ earth[7:12,7:15]=1
 newEarth=np.zeros((dim, dim),dtype=int) #creating an empty earth 
 life=[]
 for day in range(11):
-    days = days + 1 # increment days by 1 after each generation
     plt.savefig("./images/earth_day_"+str(day)+".png")
     plt.matshow(earth)
     newEarth=np.zeros((dim,dim),dtype=int) #creating
@@ -54,10 +53,13 @@ for day in range(11):
         break
     earth=newEarth
     life.append(earth.sum())
+    days = days + 1 # increment days by 1 after each generation
     
 # Build GIF from generated images
-with imageio.get_writer((str(days)+'_days.gif'), mode='I', duration=0.25) as writer:
+with imageio.get_writer(('earth_'+str(days-1)+'_days.gif'), mode='I', duration=0.1) as writer:
     for filename in os.listdir(filePath):
+        if filename == "earth_day_0.png": # first image is always a blank image which causes a bug
+            continue # skip first file
         image = imageio.imread(filePath+"/"+filename)
         writer.append_data(image)
     print("Gif successfully generated at " + os.path.abspath("./"))
