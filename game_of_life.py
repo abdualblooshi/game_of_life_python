@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import imageio
+import imageio as imgio
 
 
 # Check whether images folder already exists or not
@@ -56,10 +56,10 @@ for day in range(11):
     days = days + 1 # increment days by 1 after each generation
     
 # Build GIF from generated images
-with imageio.get_writer(('earth_'+str(days-1)+'_days.gif'), mode='I', duration=0.1) as writer:
+with imgio.get_writer(('earth_'+str(days-1)+'_days.gif'), mode='I', duration=0.1) as writer:
     for filename in os.listdir(filePath):
         if filename == "earth_day_0.png": # first image is always a blank image which causes a bug
             continue # skip first file
-        image = imageio.imread(filePath+"/"+filename)
+        image = imgio.imread(filePath+"/"+filename)
         writer.append_data(image)
     print("Gif successfully generated at " + os.path.abspath("./"))
