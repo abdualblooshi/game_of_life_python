@@ -9,9 +9,9 @@ import imageio as imgio
 filePath = "./images" # file path for images
 isExist = os.path.exists(filePath) # boolean variable to see if folder exists
 if not isExist:
-  # Create a new directory because it does not exist 
-  os.makedirs(filePath)
-  print("Generated images directory!")
+    # Create a new directory because it does not exist 
+    os.makedirs(filePath)
+    print("Generated images directory!")
 else:
     # clear all previously generated images to avoid mixing
     for f in os.listdir(filePath):
