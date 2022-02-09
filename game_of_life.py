@@ -56,7 +56,7 @@ for day in range(11):
     days = days + 1 # increment days by 1 after each generation
     
 # Build GIF from generated images
-with imgio.get_writer(('earth_'+str(days-1)+'_days.gif'), mode='I', duration=0.1) as writer:
+with imgio.get_writer(('earth.gif'), mode='I', duration=0.1) as writer:
     for filename in os.listdir(filePath):
         if filename == "earth_day_0.png": # first image is always a blank image which causes a bug
             continue # skip first file
