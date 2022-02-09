@@ -19,15 +19,12 @@ else:
     print("Successfully removed previous images!")
 
 
-dim=30
-days=0 # initialize days to 0
+dim=70
 earth=np.zeros((dim, dim),dtype=int) #creating an empty earth 
-#Initally poulate earth 
-earth[7:12,7:15]=1
+earth[20:50,20:50]=1 # populate the earth
 newEarth=np.zeros((dim, dim),dtype=int) #creating an empty earth 
 life=[]
-for day in range(11):
-    plt.savefig("./images/earth_day_"+str(day)+".png")
+for day in range(50):
     plt.matshow(earth)
     newEarth=np.zeros((dim,dim),dtype=int) #creating
     for x in range(1,dim-1):
@@ -51,15 +48,14 @@ for day in range(11):
                 
     if np.alltrue(earth==newEarth): # checks if life didn't change change in a generation
         break
-    earth=newEarth
-    life.append(earth.sum())
-    days = days + 1 # increment days by 1 after each generation
+    else:
+        earth=newEarth # if life changed, update earth
+        plt.savefig("./images/earth_day_"+str(day)+".png") # save image of plot
+        life.append(earth.sum()) # add the number of cells alive to life list
     
 # Build GIF from generated images
 with imgio.get_writer(('earth.gif'), mode='I', duration=0.1) as writer:
     for filename in os.listdir(filePath):
-        if filename == "earth_day_0.png": # first image is always a blank image which causes a bug
-            continue # skip first file
         image = imgio.imread(filePath+"/"+filename)
         writer.append_data(image)
     print("Gif successfully generated at " + os.path.abspath("./"))
